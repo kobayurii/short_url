@@ -21,6 +21,9 @@ User = get_user_model()
 
 
 class ObtainAuthToken(generics.GenericAPIView):
+    """
+    Endpoint to get auth token
+    """
     permission_classes = (permissions.AllowAny, )
     serializer_class = AuthTokenSerializer
 
