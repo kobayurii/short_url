@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <form method="POST" class="post-form" enctype="multipart/form-data" action="{% url 'shortener' %}">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="primaryAction">Create short URL</button>
+        </form>
+    <hr>
+    <table style="width:100%">
+  <tr>
+    <th>URL</th>
+    <th>Text</th>
+    <th>Clicks</th>
+    <th>Short</th>
+    <th>Created</th>
+    <th>Action</th>
+  </tr>
+    {% for short in short_urls %}
+  <tr>
+      <td><a href="{{ short.url }}">{{ short.url }}</a></td>
+    <td>{{ short.text }}</td>
+    <td>{{ short.clicks }}</td>
+    <td>{{ domain }}{{ short.short }}</td>
+    <td>{{ short.created_at }}</td>
+      <td><a href="{% url 'edit' short.pk %}">&#9998;</a><a href="{% url 'delete' short.pk %}">   &#10006;</a></td>
+  </tr>
+    {% endfor %}
+</table>
+    <div class="row">
+		<div class="large-12">
+			<ul class="pagination">
+				{% if page_obj.has_previous %}
+					<li class="arrow"><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+				{% else %}
+					<li class="arrow unavailable"><a href="">&laquo;</a></li>
+				{% endif %}
+				{% for page in paginator.page_range %}
+					{% if page == page_obj.number %}
+						<li class="current"><a href="?page={{ page }}">{{ page }}</a></li>
+					{% else %}
+						<li><a href="?page={{ page }}">{{ page }}</a></li>
+					{% endif %}
+				{% endfor %}
+				{% if page_obj.has_next %}
+					<li class="arrow"><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+				{% else %}
+					<li class="arrow unavailable"><a href="">&raquo;</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+
+{% endblock %}

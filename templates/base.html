@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" type="text/css">
+    <title>URL Shorten</title>
+</head>
+<body>
+    <div class='page-header'>
+        <h1 style="text-align: center"><a href="/">URL Short</a></h1>
+        {% if user.username %}
+            <h4 style="text-align: right; color: white">
+            {{ user.email }} <a href="{% url 'account_logout' %}">Sing out</a>
+            </h4>
+        {% else %}
+            <h4 style="text-align: right">
+                <a href="{% url 'account_login' %}">Sing in</a>/<a href="{% url 'account_signup' %}">Sing up</a>
+            </h4>
+        {% endif %}
+    </div>
+    <div class="row">
+    <div class="large-12 columns panel ">
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>

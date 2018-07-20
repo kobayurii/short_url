@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" class="post-form" enctype="multipart/form-data" action="{% url 'edit' short_url.pk %}">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="primaryAction">Save</button>
+    </form>
+
+{% endblock %}
