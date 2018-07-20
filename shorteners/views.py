@@ -46,6 +46,10 @@ class EditShortUrlView(generic.DetailView, generic.CreateView):
     template_name = 'shortener.html'
     context_object_name = 'short_url'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(user=self.request.user)
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()

@@ -26,7 +26,6 @@ class ShortURLEditForm(forms.ModelForm):
         if instance and instance.pk:
             self.fields['created_at'].widget.attrs['readonly'] = True
             self.fields['clicks'].widget.attrs['readonly'] = True
-            self.fields['url'].widget.attrs['readonly'] = True
 
     class Meta:
         model = ShortURL

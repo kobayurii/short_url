@@ -1,12 +1,14 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from core.schema import SwaggerSchemaView
 
 urlpatterns = [
-    url(r'^', include('shorteners.urls')),
+    url(r'^api/$', SwaggerSchemaView.as_view(), name='docs'),
+    url(r'^api/', include('core.api')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^', include('shorteners.urls')),
 ]
 
 
