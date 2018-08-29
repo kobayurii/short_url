@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    networks:
+      - backend
+    environment:
+      - POSTGRES_PASSWORD=XN3T35quUGrg
+      - POSTGRES_USER=short
+      - POSTGRES_DB=short_url_db
+  web:
+    container_name: web
+    image: kobayurii/short_url
+    command: python3 manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.docker
+    volumes:
+      - .:/opt/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - backend
+networks:
+  backend:
+volumes:
+   db-volume:

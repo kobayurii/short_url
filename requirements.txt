@@ -37,3 +37,6 @@ traitlets==4.3.2
 uritemplate==3.0.0
 urllib3==1.23
 wcwidth==0.1.7
+psycopg2
+invoke
+psycopg2-binary
