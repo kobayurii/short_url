@@ -19,13 +19,24 @@ services:
       - DJANGO_SETTINGS_MODULE=core.settings.docker
     volumes:
       - .:/opt/www
-    ports:
-      - "8000:8000"
     depends_on:
       - db
+    networks:
+      - backend
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - web
+    ports:
+      - "80:80"
+    depends_on:
+      - web
     networks:
       - backend
 networks:
   backend:
 volumes:
-   db-volume:
+  db-volume:
